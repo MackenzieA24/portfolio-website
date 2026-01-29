@@ -8,7 +8,7 @@ const Contact = () => {
     subject: '',
     message: ''
   });
-  const [status, setStatus] = useState({ type: '', message: '' });
+  const [status, setStatus] = useState({ type: '', message: '', errors: [] });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
@@ -21,20 +21,34 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setStatus({ type: '', message: '' });
+    setStatus({ type: '', message: '', errors: [] });
 
     try {
-      const response = await submitContactForm(formData);
+      await submitContactForm(formData);
       setStatus({
         type: 'success',
-        message: 'Thank you! Your message has been sent successfully.'
+        message: 'Thank you! Your message has been sent successfully.',
+        errors: []
       });
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
-      setStatus({
-        type: 'error',
-        message: 'Oops! Something went wrong. Please try again.'
-      });
+      let message = 'Oops! Something went wrong. Please try again.';
+      let errors = [];
+
+      if (error.name === 'ApiError') {
+        if (error.status === 429) {
+          message = 'Too many submissions. Please wait before trying again.';
+        } else if (error.status === 400 && error.errors.length > 0) {
+          message = 'Please fix the following errors:';
+          errors = error.errors;
+        } else if (error.status === 0) {
+          message = 'Unable to connect to server. Please check your internet connection.';
+        } else {
+          message = error.message;
+        }
+      }
+
+      setStatus({ type: 'error', message, errors });
     } finally {
       setIsSubmitting(false);
     }
@@ -115,7 +129,14 @@ const Contact = () => {
               <div className={`mb-4 p-4 rounded-lg ${
                 status.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
               }`}>
-                {status.message}
+                <p>{status.message}</p>
+                {status.errors && status.errors.length > 0 && (
+                  <ul className="mt-2 list-disc list-inside text-sm">
+                    {status.errors.map((err, index) => (
+                      <li key={index}>{err.field}: {err.message}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
             )}
 
