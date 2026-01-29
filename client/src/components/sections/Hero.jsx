@@ -1,30 +1,101 @@
+import { motion } from 'framer-motion';
+
 const Hero = () => {
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 pt-16">
-      <div className="container mx-auto px-6 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold text-gray-800 mb-4">
-          Hi, I'm <span className="text-blue-600">Mackenzie Aylor</span>
-        </h1>
-        <p className="text-xl md:text-2xl text-gray-600 mb-8">
-          Full-Stack Engineer | AWS Certified | Problem Solver
-        </p>
-        <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-8">
-          Building applications with the same rigor required to lead operations in high-stakes environments.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+      {/* Animated background */}
+      <div className="absolute inset-0 animated-gradient" />
+      <div className="absolute inset-0 grid-pattern" />
+
+      {/* Floating orbs */}
+      <motion.div
+        className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl"
+        animate={{
+          x: [0, 30, 0],
+          y: [0, -20, 0],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div
+        className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+        animate={{
+          x: [0, -30, 0],
+          y: [0, 20, 0],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+
+      <div className="container mx-auto px-6 text-center relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.p
+            className="text-cyan-400 text-lg mb-4 tracking-widest uppercase"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            Full-Stack Engineer
+          </motion.p>
+
+          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            <span className="text-slate-100">Hi, I'm </span>
+            <span className="gradient-text">Mackenzie Aylor</span>
+          </h1>
+
+          <motion.p
+            className="text-xl md:text-2xl text-slate-400 mb-4 max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            AWS Certified • AI/LLM Enthusiast • Problem Solver
+          </motion.p>
+
+          <motion.p
+            className="text-lg text-slate-500 max-w-xl mx-auto mb-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+          >
+            Building intelligent applications at the intersection of traditional software engineering and AI.
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+        >
+          <motion.a
             href="#projects"
-            className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
+            className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-purple-500 text-white rounded-lg font-medium glow-button"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             View My Work
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href="#contact"
-            className="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition duration-300"
+            className="px-8 py-3 border border-cyan-500/50 text-cyan-400 rounded-lg font-medium hover:bg-cyan-500/10 transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             Get In Touch
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
+
       </div>
     </section>
   );

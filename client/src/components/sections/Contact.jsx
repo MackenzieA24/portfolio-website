@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { submitContactForm } from '../../services/api';
 
 const Contact = () => {
@@ -54,50 +55,75 @@ const Contact = () => {
     }
   };
 
+  const inputClasses = "w-full px-4 py-3 bg-[#1a1a24] border border-slate-700 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all duration-300";
+  const labelClasses = "block text-slate-300 font-medium mb-2";
+
   return (
-    <section id="contact" className="py-20 bg-gray-50">
-      <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
-          Get In Touch
-        </h2>
-        <div className="max-w-2xl mx-auto">
-          <p className="text-center text-gray-600 mb-8">
+    <section id="contact" className="py-24 bg-[#12121a] relative overflow-hidden">
+      {/* Background decorations */}
+      <div className="absolute top-1/4 right-0 w-72 h-72 bg-cyan-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 left-0 w-72 h-72 bg-purple-500/5 rounded-full blur-3xl" />
+
+      <div className="container mx-auto px-6 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-4xl font-bold text-center mb-4">
+            <span className="gradient-text">Get In Touch</span>
+          </h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 mx-auto mb-6 rounded-full" />
+          <p className="text-center text-slate-400 mb-12 max-w-lg mx-auto">
             Have a project in mind or want to collaborate? Feel free to reach out!
           </p>
+        </motion.div>
 
-          <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md">
-            <div className="mb-4">
-              <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">
-                Name *
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
-              />
+        <motion.div
+          className="max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          <form onSubmit={handleSubmit} className="glass-card rounded-xl p-8">
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label htmlFor="name" className={labelClasses}>
+                  Name *
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="Your name"
+                  className={inputClasses}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className={labelClasses}>
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="your@email.com"
+                  className={inputClasses}
+                />
+              </div>
             </div>
 
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
-                Email *
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="subject" className="block text-gray-700 font-semibold mb-2">
+            <div className="mb-6">
+              <label htmlFor="subject" className={labelClasses}>
                 Subject
               </label>
               <input
@@ -106,12 +132,13 @@ const Contact = () => {
                 name="subject"
                 value={formData.subject}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
+                placeholder="What's this about?"
+                className={inputClasses}
               />
             </div>
 
             <div className="mb-6">
-              <label htmlFor="message" className="block text-gray-700 font-semibold mb-2">
+              <label htmlFor="message" className={labelClasses}>
                 Message *
               </label>
               <textarea
@@ -121,34 +148,53 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 rows="5"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
+                placeholder="Your message..."
+                className={inputClasses + " resize-none"}
               ></textarea>
             </div>
 
             {status.message && (
-              <div className={`mb-4 p-4 rounded-lg ${
-                status.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-              }`}>
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`mb-6 p-4 rounded-lg border ${
+                  status.type === 'success'
+                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                    : 'bg-red-500/10 border-red-500/30 text-red-400'
+                }`}
+              >
                 <p>{status.message}</p>
                 {status.errors && status.errors.length > 0 && (
-                  <ul className="mt-2 list-disc list-inside text-sm">
+                  <ul className="mt-2 list-disc list-inside text-sm opacity-80">
                     {status.errors.map((err, index) => (
                       <li key={index}>{err.field}: {err.message}</li>
                     ))}
                   </ul>
                 )}
-              </div>
+              </motion.div>
             )}
 
-            <button
+            <motion.button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 disabled:bg-gray-400"
+              className="w-full py-4 bg-gradient-to-r from-cyan-500 to-purple-500 text-white rounded-lg font-medium glow-button disabled:opacity-50 disabled:cursor-not-allowed"
+              whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
             >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
-            </button>
+              {isSubmitting ? (
+                <span className="flex items-center justify-center gap-2">
+                  <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  Sending...
+                </span>
+              ) : (
+                'Send Message'
+              )}
+            </motion.button>
           </form>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

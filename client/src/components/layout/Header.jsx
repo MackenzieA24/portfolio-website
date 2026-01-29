@@ -1,7 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { name: 'Home', href: '#home' },
@@ -21,32 +31,50 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 w-full bg-white shadow-md z-50">
+    <motion.header
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-[#0a0a0f]/90 backdrop-blur-md border-b border-slate-800'
+          : 'bg-transparent'
+      }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="text-2xl font-bold text-gray-800">
-            Portfolio
-          </div>
+          <motion.a
+            href="#home"
+            onClick={(e) => scrollToSection(e, '#home')}
+            className="text-2xl font-bold"
+            whileHover={{ scale: 1.05 }}
+          >
+            <span className="gradient-text">MA</span>
+          </motion.a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
-            {navLinks.map((link) => (
-              <a
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link, index) => (
+              <motion.a
                 key={link.name}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="text-gray-700 hover:text-blue-600 transition duration-300"
+                className="text-slate-400 hover:text-cyan-400 transition-colors duration-300 text-sm font-medium"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -2 }}
               >
                 {link.name}
-              </a>
+              </motion.a>
             ))}
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden focus:outline-none"
+            className="md:hidden focus:outline-none text-slate-300 hover:text-cyan-400 transition-colors"
             aria-label="Toggle menu"
           >
             <svg
@@ -68,22 +96,33 @@ const Header = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
-                className="block py-2 text-gray-700 hover:text-blue-600 transition duration-300"
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
-        )}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              className="md:hidden mt-4 pb-4 border-t border-slate-800 pt-4"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {navLinks.map((link, index) => (
+                <motion.a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => scrollToSection(e, link.href)}
+                  className="block py-3 text-slate-400 hover:text-cyan-400 transition-colors duration-300"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                >
+                  {link.name}
+                </motion.a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
-    </header>
+    </motion.header>
   );
 };
 
