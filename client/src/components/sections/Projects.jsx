@@ -2,27 +2,27 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce application with shopping cart, payment integration, and admin dashboard.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-      github: '#',
-      demo: '#'
+      title: 'Stock Dashboard',
+      description: 'A full-stack, real-time stock price dashboard with Spring WebSocket for live data updates, Alpha Vantage API integration with rate-limiting, and H2 database persistence.',
+      technologies: ['Java', 'Spring Boot', 'WebSocket', 'JPA/Hibernate', 'Bootstrap'],
+      github: 'https://github.com/MackenzieA24/Stock-Dashboard',
+      demo: null
     },
     {
       id: 2,
-      title: 'Task Management App',
-      description: 'Real-time collaborative task management tool with drag-and-drop functionality.',
-      technologies: ['React', 'Express', 'WebSockets', 'PostgreSQL'],
-      github: '#',
-      demo: '#'
+      title: 'Freezer - Weather Alert App',
+      description: 'A proactive Android weather monitoring app with background processing, smart notifications via WorkManager, and automatic location detection for freeze and precipitation alerts.',
+      technologies: ['Java', 'Android', 'Retrofit', 'WorkManager', 'OpenWeather API'],
+      github: 'https://github.com/MackenzieA24/Freezer',
+      demo: null
     },
     {
       id: 3,
-      title: 'Weather Dashboard',
-      description: 'Interactive weather dashboard with location search and 7-day forecast visualization.',
-      technologies: ['React', 'OpenWeather API', 'Chart.js', 'Tailwind'],
-      github: '#',
-      demo: '#'
+      title: 'Portfolio Website',
+      description: 'This portfolio site built with React and Node.js, featuring security hardening (Helmet, CORS, rate limiting), input validation, error boundaries, and comprehensive testing.',
+      technologies: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'Jest', 'Vitest'],
+      github: 'https://github.com/MackenzieA24/portfolio-website',
+      demo: null
     }
   ];
 
@@ -53,16 +53,22 @@ const Projects = () => {
                 <div className="flex gap-4">
                   <a
                     href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 transition duration-300"
                   >
                     GitHub →
                   </a>
-                  <a
-                    href={project.demo}
-                    className="text-blue-600 hover:text-blue-800 transition duration-300"
-                  >
-                    Live Demo →
-                  </a>
+                  {project.demo && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 transition duration-300"
+                    >
+                      Live Demo →
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

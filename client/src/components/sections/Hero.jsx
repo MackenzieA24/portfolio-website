@@ -3,10 +3,13 @@ const Hero = () => {
     <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 pt-16">
       <div className="container mx-auto px-6 text-center">
         <h1 className="text-5xl md:text-7xl font-bold text-gray-800 mb-4">
-          Hi, I'm <span className="text-blue-600">Your Name</span>
+          Hi, I'm <span className="text-blue-600">Mackenzie Aylor</span>
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 mb-8">
-          Full Stack Developer | Problem Solver | Tech Enthusiast
+          Full-Stack Engineer | AWS Certified | Problem Solver
+        </p>
+        <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-8">
+          Building applications with the same rigor required to lead operations in high-stakes environments.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a

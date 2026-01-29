@@ -1,16 +1,24 @@
 const Skills = () => {
   const skills = [
     {
-      category: 'Frontend',
-      items: ['React', 'JavaScript', 'HTML/CSS', 'Tailwind CSS', 'Responsive Design']
-    },
-    {
       category: 'Backend',
-      items: ['Node.js', 'Express', 'MongoDB', 'REST APIs', 'Authentication']
+      items: ['Java', 'Spring Boot', 'Node.js', 'Express', 'REST APIs', 'WebSocket']
     },
     {
-      category: 'Tools & Others',
-      items: ['Git', 'VS Code', 'npm/yarn', 'Vite', 'Agile/Scrum']
+      category: 'Frontend',
+      items: ['React', 'JavaScript', 'HTML/CSS', 'Tailwind CSS', 'Bootstrap', 'Android']
+    },
+    {
+      category: 'AI & LLMs',
+      items: ['Claude', 'LibreChat', 'AI Agents', 'Vector Databases', 'Prompt Engineering']
+    },
+    {
+      category: 'Data & Cloud',
+      items: ['MongoDB', 'PostgreSQL', 'H2', 'JPA/Hibernate', 'AWS']
+    },
+    {
+      category: 'Tools & Practices',
+      items: ['Git', 'Agile/Scrum', 'ITIL', 'Vite', 'Jest', 'Vitest']
     }
   ];
 
@@ -20,7 +28,7 @@ const Skills = () => {
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
           Skills & Technologies
         </h2>
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
           {skills.map((skillSet) => (
             <div key={skillSet.category} className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-2xl font-semibold text-blue-600 mb-4">
