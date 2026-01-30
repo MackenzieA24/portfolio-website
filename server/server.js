@@ -1,15 +1,15 @@
+const dotenv = require('dotenv');
+// Load environment variables FIRST, before other requires
+dotenv.config();
+
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const dotenv = require('dotenv');
 const connectDB = require('./config/database');
 const logger = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
 const { apiLimiter } = require('./middleware/rateLimiter');
 const contactRoutes = require('./routes/contactRoutes');
-
-// Load environment variables
-dotenv.config();
 
 // Connect to database
 connectDB();

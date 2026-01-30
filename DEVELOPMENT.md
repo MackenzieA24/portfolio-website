@@ -52,6 +52,22 @@ Since Claude Code sessions start fresh each time:
 
 ---
 
+## Security Policy for Documentation
+
+**MANDATORY: Sensitive Information Handling**
+
+When writing conversation logs and documentation, Claude MUST:
+
+1. **Omit** any `.env` variable names, values, or structure
+2. **Omit** any API key references or redacted outputs
+3. **Only document** that a feature was implemented (e.g., "Email integration was added") without configuration specifics
+4. **Not reference** commands used to inspect environment files or sensitive configurations
+5. **Never include** database connection strings, authentication tokens, or credentials
+
+This policy ensures that conversation logs remain safe to commit to version control without exposing sensitive project configuration.
+
+---
+
 ## Quick Start for New Sessions
 
 When resuming work:

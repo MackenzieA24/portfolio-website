@@ -1,5 +1,27 @@
 import { motion } from 'framer-motion';
 
+// Themed icons for each project
+const ProjectIcons = {
+  // Stock chart icon for dashboard
+  dashboard: (
+    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+    </svg>
+  ),
+  // Snowflake/weather icon for Freezer app
+  weather: (
+    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18m0-18l-3 3m3-3l3 3m-3 15l-3-3m3 3l3-3M3 12h18M3 12l3-3m-3 3l3 3m15-3l-3-3m3 3l-3 3M5.636 5.636l2.122 2.122m8.484 8.484l2.122 2.122m-12.728 0l2.122-2.122m8.484-8.484l2.122-2.122" />
+    </svg>
+  ),
+  // Code/browser icon for portfolio
+  code: (
+    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+    </svg>
+  )
+};
+
 const Projects = () => {
   const projects = [
     {
@@ -9,7 +31,8 @@ const Projects = () => {
       technologies: ['Java', 'Spring Boot', 'WebSocket', 'JPA/Hibernate', 'Bootstrap'],
       github: 'https://github.com/MackenzieA24/Stock-Dashboard',
       demo: null,
-      gradient: 'from-cyan-500 to-blue-500'
+      gradient: 'from-cyan-500 to-blue-500',
+      icon: 'dashboard'
     },
     {
       id: 2,
@@ -18,7 +41,8 @@ const Projects = () => {
       technologies: ['Java', 'Android', 'Retrofit', 'WorkManager', 'OpenWeather API'],
       github: 'https://github.com/MackenzieA24/Freezer',
       demo: null,
-      gradient: 'from-purple-500 to-pink-500'
+      gradient: 'from-purple-500 to-pink-500',
+      icon: 'weather'
     },
     {
       id: 3,
@@ -27,7 +51,8 @@ const Projects = () => {
       technologies: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'Jest', 'Vitest'],
       github: 'https://github.com/MackenzieA24/portfolio-website',
       demo: null,
-      gradient: 'from-emerald-500 to-cyan-500'
+      gradient: 'from-emerald-500 to-cyan-500',
+      icon: 'code'
     }
   ];
 
@@ -79,15 +104,16 @@ const Projects = () => {
               whileHover={{ y: -10 }}
               className="glass-card rounded-xl overflow-hidden hover:neon-border transition-all duration-300 group"
             >
-              {/* Gradient header */}
+              {/* Gradient header with themed icon */}
               <div className={`h-32 bg-gradient-to-br ${project.gradient} relative overflow-hidden`}>
                 <div className="absolute inset-0 bg-black/20" />
-                <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center justify-center text-white/90">
                   <motion.div
-                    className="w-16 h-16 border-2 border-white/30 rounded-lg"
-                    whileHover={{ rotate: 45, scale: 1.1 }}
+                    whileHover={{ scale: 1.15 }}
                     transition={{ duration: 0.3 }}
-                  />
+                  >
+                    {ProjectIcons[project.icon]}
+                  </motion.div>
                 </div>
               </div>
 
