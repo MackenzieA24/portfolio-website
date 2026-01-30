@@ -76,3 +76,31 @@ When resuming work:
 3. Ask user what they want to work on this session
 4. Document everything as we go
 5. Update conversation log before session ends
+
+---
+
+## Stopping Development Servers (Windows)
+
+**IMPORTANT:** The `TaskStop` command only stops Claude Code's tracking of background tasks. It does NOT reliably terminate the actual Node.js processes, which may continue running as orphaned processes.
+
+### To properly stop servers at session end:
+
+1. **Find processes using the ports:**
+   ```bash
+   netstat -ano | grep -E ":5000|:5173"
+   ```
+   This shows the PID (Process ID) in the last column.
+
+2. **Kill the specific processes:**
+   ```bash
+   taskkill //F //PID <pid_number>
+   ```
+
+### Why this happens:
+- Running `npm run dev` spawns multiple processes (npm, node, workers)
+- Stopping the parent task doesn't cascade to child processes
+- Windows requires explicit `taskkill` commands (not Unix-style `pkill`)
+
+### Common ports for this project:
+- **5173** - Vite frontend dev server
+- **5000** - Express backend server
