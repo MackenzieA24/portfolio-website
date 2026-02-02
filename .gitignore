@@ -49,3 +49,4 @@ Thumbs.db
 .fusebox
 .dynamodb
 .tern-port
+.vite/

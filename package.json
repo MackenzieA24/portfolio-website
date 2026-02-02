@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-website",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "dev:client": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "test": "vitest",
+    "test:run": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^4.0.18"
+  },
+  "dependencies": {
+    "resend": "^6.9.1"
+  }
+}
