@@ -47,8 +47,8 @@ const Projects = () => {
     {
       id: 3,
       title: 'Portfolio Website',
-      description: 'This portfolio site built with React and Node.js, featuring security hardening (Helmet, CORS, rate limiting), input validation, error boundaries, and comprehensive testing.',
-      technologies: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'Jest', 'Vitest'],
+      description: 'This portfolio site built with React and Vercel serverless functions, featuring Framer Motion animations, Resend email integration, and security headers.',
+      technologies: ['React', 'Vercel', 'Tailwind CSS', 'Framer Motion', 'Resend'],
       github: 'https://github.com/MackenzieA24/portfolio-website',
       demo: null,
       gradient: 'from-emerald-500 to-cyan-500',
